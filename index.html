@@ -26,7 +26,7 @@
     <p>
       <!-- I am currently a PhD student at Georgia Tech, advised by <a href="http://vsarkar.cc.gatech.edu/">Dr. Vivek Sarkar</a>. -->
       I am currently a second-year CS PhD student at Georgia Tech.
-      I work with Prof. <a href="https://www.cc.gatech.edu/~ddevecsery6/">David Devecsery</a> and Prof. <a href="https://vsarkar.cc.gatech.edu/">Vivek Sarkar</a> on programming language and software system.
+      I work with Prof. <a href="https://www.cc.gatech.edu/~ddevecsery6/">David Devecsery</a> and Prof. <a href="https://vsarkar.cc.gatech.edu/">Vivek Sarkar</a> on programming language and software system. My current interests include optimizing parallel programs, debugging and optimizing data/numerical science computing.
       <!-- My former advisor is <a href="http://web.eecs.utk.edu/~mrjantz/">Dr. Michael Jantz</a>. -->
     </p> 
 
@@ -35,14 +35,18 @@
     <h2>Projects</h2>
     <ul id="projects">
       <li class="project_title">
-        A System That Dynamically Optimizes Dynamic Analysis
+        A System That Dynamically Optimizes Dynamic Analysis (to be continued)
       </li>
       TBA.
 
       <li class="project_title">
         <a href="https://hpcgarage.github.io/intrepyddguide/">Intrepydd<a/>: A High Level DSL for Data Analystics
       </li>
-      Intrepydd is a novel ahead-of-time (AOT) programming system for Python programmers who want faster code on current hardware, and also on future reconfigurable and heterogeneous systems being designed to address the challenges of post-Moore’s-Law computing. The target audience for Intrepydd is Python programmers who are interested in writing data analytics kernels with the productivity of high-level Python code and the performance of low-level C/C++ code. This web site summarizes an early release (v0.2) of Intrepydd, finalized in May 2019, and will be updated as later releases become available. 
+      High-productivity languages like Python, Julia, and R, with the ability to selectively scale computational bottlenecks to large-scale workloads. Today, balancing hardware performance and developer productivity has relied either on fixed-function libraries that can be hard to adapt or domain-specific languages (DSLs) that, lacking full generality by design, may be hard to integrate with or extend for larger workflows.
+      We introduce the PePPy programming system, which enables data scientists to write application
+kernels with high performance, productivity, and portability on current and future hardware. PePPy is based on Python, though the approach can be applied to other base languages as well. To deliver high performance, the PePPy toolchain uses ahead-of-time (AOT) compilation and high-level compiler optimizations of PePPy kernels while still retaining the productivity of Python.
+PePPy achieves portability by the ability to compile its kernels in different modes for execution on different hardware platforms, and for invocation from Python or C++ main programs.
+      <!-- Intrepydd is a novel ahead-of-time (AOT) programming system for Python programmers who want faster code on current hardware, and also on future reconfigurable and heterogeneous systems being designed to address the challenges of post-Moore’s-Law computing. The target audience for Intrepydd is Python programmers who are interested in writing data analytics kernels with the productivity of high-level Python code and the performance of low-level C/C++ code. This web site summarizes an early release (v0.2) of Intrepydd, finalized in May 2019, and will be updated as later releases become available.  -->
 
       <li class="project_title">
         Valence: Variable Length Calling Context Encoding
