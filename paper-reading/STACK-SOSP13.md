@@ -36,6 +36,8 @@ else:
 
 If `R(e) && !U(e)` is unsatisfiable, it means it's impossible for `e` to be both reachable and not triggering the UB condition. The means when `e` is reached, `U(e)` must be true.
 
+They used an intra-procedural analysis and still got low false positive rate.
+
 # Some more comments
 Java code is inherently slower than C because its more strict language specification (more strict memory model, less undefined behaviors) prevents the compiler from doing certain optimizations, like reordering statements, removing index-out-of-bound checks etc. There are also GC safepoint checks, deoptimization checks. Pretty much the only undefined behavior is Java is incorrectly synchronized programs (DRF0 model). Therefore, a well-tuned Java program is going to be somewhat slower than a well-tuned equivalent C program (not considering dynamic compilation advantage).
 
