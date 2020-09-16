@@ -34,6 +34,14 @@ else:
 
 If `R(e) && !U(e)` is unsatisfiable, it means it's impossible for `e` to be both reachable and not triggering the UB condition. The means when `e` is reached, `U(e)` must be true.
 
+# Some more comments
 Java code is inherently slower than C because its more strict language specification (more strict memory model, less undefined behaviors) prevents the compiler from doing certain optimizations, like reordering statements, removing index-out-of-bound checks etc. There are also GC safepoint checks, deoptimization checks. Pretty much the only undefined behavior is Java is incorrectly synchronized programs (DRF0 model). Therefore, a well-tuned Java program is going to be somewhat slower than a well-tuned equivalent C program (not considering dynamic compilation advantage).
 
+# How to solve this problem eventually?
+For sure the programmers need to be more aware of UBs and the compilers should also warn wherever possible. However...
 
+Some UB maybe difficult to check statically (like involving pointer analysis etc). The paper only modeled a few simple statements that can trigger UBs (Figure 3).
+
+It's not realistic to understand the entire C specification.
+
+Rust?
