@@ -36,6 +36,18 @@ else:
 
 If `R(e) && !U(e)` is unsatisfiable, it means it's impossible for `e` to be both reachable and not triggering the UB condition. The means when `e` is reached, `U(e)` must be true.
 
+Example:
+
+```c
+*p = ...;  // s1
+
+if (p == NULL) {  // s2
+	return;  // s3
+}
+```
+
+To compute if `s3` can be eliminated when assuming WDA, it essentially tries to determine `R(e3)` with and without the assumption. When `s1` is seen, it records an assumption `p != NULL`, i.e.`!U(e3)`. When looking at `s3`, `R(s3)` is `p == NULL`, then it tries to compute `R(s3) && !U(e3)` is always false (UNSAT), if so, then `s3` is dead code. The version without `!U(e3)` is to check `R(e3)` without `!U(e3)`.
+
 They used an intra-procedural analysis and still got low false positive rate.
 
 # Some more comments
