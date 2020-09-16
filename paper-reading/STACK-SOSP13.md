@@ -1,4 +1,6 @@
-[https://people.csail.mit.edu/nickolai/papers/wang-stack.pdf](Link)
+# Towards Optimization-Safe Systems: Analyzing the Impact of Undefined Behavior
+
+[Paper](https://people.csail.mit.edu/nickolai/papers/wang-stack.pdf)
 
 Compilers can optimized assuming the programs have no certain UBs, such as assuming `*p` implies `p` will always be non-NULL, or assuming `i+1 < i` is always false. It's legal for the compiler to do so.
 
