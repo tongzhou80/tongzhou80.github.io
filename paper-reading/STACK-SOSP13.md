@@ -9,11 +9,13 @@ There are many categories of undefined behaviors. Some UB are erroneous behavior
 # Undefined behavior examples
 
 - Dereferencing NULL pointers
+  - Error but requires extra check to guarantee consistent behavior
 
 - Integer overflow (including division)
   - `INT_MIN / -1` can overflow too
 
 - Buffer index out of bound
+  - Error but requires extra check to guarantee consistent behavior
 
 - Unsequenced modification
   - Two operations are unsequenced and operate the same scalar variable. One of them has side effects (write to the scalar). 
