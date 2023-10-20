@@ -26,161 +26,160 @@
     <img src="pics/TongZhou.jpg" alt="08/2015" height="210">
     <p>
       <!-- I am currently a PhD student at Georgia Tech, advised by <a href="http://vsarkar.cc.gatech.edu/">Dr. Vivek Sarkar</a>. -->
-      I am currently a third-year CS PhD student at Georgia Tech.
-      I work with Prof. <a href="https://www.cc.gatech.edu/~ddevecsery6/">David Devecsery</a> and Prof. <a href="https://vsarkar.cc.gatech.edu/">Vivek Sarkar</a>. My research goal is to make code run as fast as possible via whatever it takes.
+      I am currently a CS PhD student at Georgia Tech, working with Prof. <a href="https://vsarkar.cc.gatech.edu/">Vivek Sarkar</a>. My research interests are compiler optimizations and parallel computing.
 
       <!-- My research aims to improve correctness and performance of softwares by making better compiler and runtime systems. -->
 
       <!-- My former advisor is <a href="http://web.eecs.utk.edu/~mrjantz/">Dr. Michael Jantz</a>. -->
     </p> 
 
-    <h2>Research Interests</h1>
-<ul id="interests">
-  <li>Compiler optimization</li>
-  <li>Parallel and high performance computing</li>
-</ul>
+    <!-- <h1>Research Interests</h1> -->
+    <!-- <ul id="interests"> -->
+    <!--   <li>Compiler optimization</li> -->
+    <!--   <li>Parallel and high performance computing</li> -->
+    <!-- </ul> -->
 
 
-<h2>Projects</h2>
-<ul id="projects">
-  <li class="project_title">
-    A System That Dynamically Optimizes Dynamic Analysis (to be continued)
-  </li>
-  TBA.
+    <h2>Projects</h2>
+    <ul id="projects">
+      <li class="project_title">
+	A System That Dynamically Optimizes Dynamic Analysis (to be continued)
+      </li>
+      TBA.
 
-  <li class="project_title">
-    <a href="https://hpcgarage.github.io/intrepyddguide/">Intrepydd<a/>: A High Level DSL for Data Analystics
-  </li>
-  High-productivity languages like Python, Julia, and R, with the ability to selectively scale computational bottlenecks to large-scale workloads. Today, balancing hardware performance and developer productivity has relied either on fixed-function libraries that can be hard to adapt or domain-specific languages (DSLs) that, lacking full generality by design, may be hard to integrate with or extend for larger workflows.
-  We introduce the PePPy programming system, which enables data scientists to write application
-  kernels with high performance, productivity, and portability on current and future hardware. PePPy is based on Python, though the approach can be applied to other base languages as well. To deliver high performance, the PePPy toolchain uses ahead-of-time (AOT) compilation and high-level compiler optimizations of PePPy kernels while still retaining the productivity of Python.
-  PePPy achieves portability by the ability to compile its kernels in different modes for execution on different hardware platforms, and for invocation from Python or C++ main programs.
-  <!-- Intrepydd is a novel ahead-of-time (AOT) programming system for Python programmers who want faster code on current hardware, and also on future reconfigurable and heterogeneous systems being designed to address the challenges of post-Moore’s-Law computing. The target audience for Intrepydd is Python programmers who are interested in writing data analytics kernels with the productivity of high-level Python code and the performance of low-level C/C++ code. This web site summarizes an early release (v0.2) of Intrepydd, finalized in May 2019, and will be updated as later releases become available.  -->
+      <li class="project_title">
+	<a href="https://hpcgarage.github.io/intrepyddguide/">Intrepydd<a/>: A High Level DSL for Data Analystics
+      </li>
+      High-productivity languages like Python, Julia, and R, with the ability to selectively scale computational bottlenecks to large-scale workloads. Today, balancing hardware performance and developer productivity has relied either on fixed-function libraries that can be hard to adapt or domain-specific languages (DSLs) that, lacking full generality by design, may be hard to integrate with or extend for larger workflows.
+      We introduce the PePPy programming system, which enables data scientists to write application
+      kernels with high performance, productivity, and portability on current and future hardware. PePPy is based on Python, though the approach can be applied to other base languages as well. To deliver high performance, the PePPy toolchain uses ahead-of-time (AOT) compilation and high-level compiler optimizations of PePPy kernels while still retaining the productivity of Python.
+      PePPy achieves portability by the ability to compile its kernels in different modes for execution on different hardware platforms, and for invocation from Python or C++ main programs.
+      <!-- Intrepydd is a novel ahead-of-time (AOT) programming system for Python programmers who want faster code on current hardware, and also on future reconfigurable and heterogeneous systems being designed to address the challenges of post-Moore’s-Law computing. The target audience for Intrepydd is Python programmers who are interested in writing data analytics kernels with the productivity of high-level Python code and the performance of low-level C/C++ code. This web site summarizes an early release (v0.2) of Intrepydd, finalized in May 2019, and will be updated as later releases become available.  -->
 
-  <li class="project_title">
-    Valence: Variable Length Calling Context Encoding
-  </li>
-  Many applications, including program optimizations, debugging tools,
-  and event loggers, rely on calling context to gain additional insight about how
-  a program behaves during execution.
-  One common strategy for determining calling contexts is to use compiler
-  instrumentation at each function call site and return sites to encode the
-  call paths and store them in a designated area of memory.
-  While recent works have shown that this approach can generate precise calling
-  context encodings with low overhead, the encodings can grow to hundreds
-  or even thousands of bytes to encode a long call path, for some applications.
-  Such lengthy encodings increase the costs associated with storing,
-  detecting, and decoding call path contexts, and can limit the
-  effectiveness of this approach for many usage scenarios.
+      <li class="project_title">
+	Valence: Variable Length Calling Context Encoding
+      </li>
+      Many applications, including program optimizations, debugging tools,
+      and event loggers, rely on calling context to gain additional insight about how
+      a program behaves during execution.
+      One common strategy for determining calling contexts is to use compiler
+      instrumentation at each function call site and return sites to encode the
+      call paths and store them in a designated area of memory.
+      While recent works have shown that this approach can generate precise calling
+      context encodings with low overhead, the encodings can grow to hundreds
+      or even thousands of bytes to encode a long call path, for some applications.
+      Such lengthy encodings increase the costs associated with storing,
+      detecting, and decoding call path contexts, and can limit the
+      effectiveness of this approach for many usage scenarios.
 
-  This work introduces a new compiler-based strategy that significantly
-  reduces the length of calling context encoding with little or no impact
-  on instrumentation costs for many applications.
-  Rather than update or store an entire word at each function call and return,
-  our approach leverages static analysis and variable length instrumentation
-  to record each piece of the calling context using only a small number of
-  bits, in most cases.
-  We implemented our approach as an LLVM compiler pass, and compared it
-  directly to the state-of-the-art calling context encoding strategy (PCCE)
-  using a standard set of C/C++ applications from SPEC
-  CPU 2017.
-  Overall, our approach reduces the length of calling context encoding from 4.3
-  words to 1.6 words on average (> 60\% reduction), thereby improving the
-  efficiency of applications that frequently store or query calling contexts.
-  <!-- Run-time calling context information enhances a wide range of fields such as feedback-directed optimization, -->
-  <!-- data race detection and program analysis. To efficiently obtain the precise calling context during execution the -->
-  <!-- current state-of-the-art methods typically employ a global data structure and instrument the program to -->
-  <!-- encode the calling context in this data structure as the program executes. However, the current precise -->
-  <!-- encoding all suffer from very high detection (querying) overhead when dealing with large-scale highly recursive applications -->
-  <!-- due to an uncompact representation of the cyclic context. -->
-  <!-- This work makes the observation that separating the acyclic and cyclic contexts encoding space yields -->
-  <!-- a more compact representation of the cyclic contexts as well as enables some optimizations for the acyclic -->
-  <!-- context encoding due to the elimination of cycles. Besides, we also present an alternative scalable acyclic encoding that -->
-  <!-- provides linear-time decoding, compared to the exponential-time decoding of the traditional methods, without -->
-  <!-- increasing any overhead. -->
+      This work introduces a new compiler-based strategy that significantly
+      reduces the length of calling context encoding with little or no impact
+      on instrumentation costs for many applications.
+      Rather than update or store an entire word at each function call and return,
+      our approach leverages static analysis and variable length instrumentation
+      to record each piece of the calling context using only a small number of
+      bits, in most cases.
+      We implemented our approach as an LLVM compiler pass, and compared it
+      directly to the state-of-the-art calling context encoding strategy (PCCE)
+      using a standard set of C/C++ applications from SPEC
+      CPU 2017.
+      Overall, our approach reduces the length of calling context encoding from 4.3
+      words to 1.6 words on average (> 60\% reduction), thereby improving the
+      efficiency of applications that frequently store or query calling contexts.
+      <!-- Run-time calling context information enhances a wide range of fields such as feedback-directed optimization, -->
+      <!-- data race detection and program analysis. To efficiently obtain the precise calling context during execution the -->
+      <!-- current state-of-the-art methods typically employ a global data structure and instrument the program to -->
+      <!-- encode the calling context in this data structure as the program executes. However, the current precise -->
+      <!-- encoding all suffer from very high detection (querying) overhead when dealing with large-scale highly recursive applications -->
+      <!-- due to an uncompact representation of the cyclic context. -->
+      <!-- This work makes the observation that separating the acyclic and cyclic contexts encoding space yields -->
+      <!-- a more compact representation of the cyclic contexts as well as enables some optimizations for the acyclic -->
+      <!-- context encoding due to the elimination of cycles. Besides, we also present an alternative scalable acyclic encoding that -->
+      <!-- provides linear-time decoding, compared to the exponential-time decoding of the traditional methods, without -->
+      <!-- increasing any overhead. -->
 
-  <p>Publications: <a href="pubs/cc19.pdf">CC'19</a></p>
-  <!-- <i>slot-based calling context encoding</i> - a fresh way to encode recursions and -->
-  <!-- a very light-weight acyclic context encoding to address scalability issue. -->
-  
+      <p>Publications: <a href="pubs/cc19.pdf">CC'19</a></p>
+      <!-- <i>slot-based calling context encoding</i> - a fresh way to encode recursions and -->
+      <!-- a very light-weight acyclic context encoding to address scalability issue. -->
+      
 
-  <li class="project_title">
-    MemBrain: Automated Allocation Guidance for Heterogeneous Memory Systems
-  </li>
-  Memory systems are becoming more heterogeneous. Such heterogeneous memory
-  systems require alternative data management strategies to utilize
-  the capacity-constrained resources efficiently. However, current
-  techniques are often limited because they rely on inflexible
-  hardware caching or manual modifications to source code.
-  This paper introduces MemBrain, a new memory management
-  framework that automates the production and use of data-tiering
-  guidance for applications on hybrid memory systems. MemBrain
-  employs program profiling and source code analysis to enable
-  transparent and efficient data placement across different types
-  of memory.
-  We evaluate MemBrain on an
-  Intel Knights Landing server machine with an upper tier of
-  limited capacity (but higher bandwidth) MCDRAM and a lower
-  tier of conventional DDR4 using a selection of high-bandwidth
-  benchmarks from SPEC CPU 2017 as well as two proxy apps
-  (Lulesh and AMG), and one full scale scientific application
-  (QMCPACK). Our evaluation shows that MemBrain can achieve
-  significant performance and efficiency improvements compared
-  to current guided and unguided management strategies.      
-  
-  <p>Publications: <a href="pubs/nas18.pdf">NAS'18</a></p>
-  
-</ul>  
+      <li class="project_title">
+	MemBrain: Automated Allocation Guidance for Heterogeneous Memory Systems
+      </li>
+      Memory systems are becoming more heterogeneous. Such heterogeneous memory
+      systems require alternative data management strategies to utilize
+      the capacity-constrained resources efficiently. However, current
+      techniques are often limited because they rely on inflexible
+      hardware caching or manual modifications to source code.
+      This paper introduces MemBrain, a new memory management
+      framework that automates the production and use of data-tiering
+      guidance for applications on hybrid memory systems. MemBrain
+      employs program profiling and source code analysis to enable
+      transparent and efficient data placement across different types
+      of memory.
+      We evaluate MemBrain on an
+      Intel Knights Landing server machine with an upper tier of
+      limited capacity (but higher bandwidth) MCDRAM and a lower
+      tier of conventional DDR4 using a selection of high-bandwidth
+      benchmarks from SPEC CPU 2017 as well as two proxy apps
+      (Lulesh and AMG), and one full scale scientific application
+      (QMCPACK). Our evaluation shows that MemBrain can achieve
+      significant performance and efficiency improvements compared
+      to current guided and unguided management strategies.      
+      
+      <p>Publications: <a href="pubs/nas18.pdf">NAS'18</a></p>
+      
+    </ul>  
 
-<h2>Publications</h2>
-<ul>
-  <li>
-    <b>Intrepydd: Performance, Productivity, and Portability for Data Science Application Kernels.</b><br>
-    Tong Zhou, Jun Shirako, Anirudh Jain, Sriseshan Srikanth, Thomas Conte, Richard Vuduc, Vivek Sarkar.<br>
-    <i>2020 ACM SIGPLAN International Symposium on New Ideas, New Paradigms, and Reflections on Programming and Software, November 2020 (Onward! '20). November 2020. </i><br>
-    [<a href="pubs/onward20.pdf">pdf</a>] [<a href="">slides</a>] [<a href="https://www.youtube.com/watch?v=ge6nHqD89mc&feature=youtu.be&ab_channel=AnirudhJain">talk</a>]
-  </li>
-  <li>
-    <b>Valence: Variable Length Calling Context Encoding.</b><br>
-    Tong Zhou, Michael R. Jantz, Prasad A. Kulkarni, Kshitij A. Doshi, and Vivek Sarkar.<br>
-    <i>28th International Conference on Compiler Construction (CC '19). February 2019. </i><br>
-    [<a href="pubs/cc19.pdf">pdf</a>] [<a href="talks/valence.pdf">slides</a>] [<a href="talks/valence.pptx">pptx</a>]
-  </li>
+    <h2>Publications</h2>
+    <ul>
+      <li>
+	<b>Intrepydd: Performance, Productivity, and Portability for Data Science Application Kernels.</b><br>
+	Tong Zhou, Jun Shirako, Anirudh Jain, Sriseshan Srikanth, Thomas Conte, Richard Vuduc, Vivek Sarkar.<br>
+	<i>2020 ACM SIGPLAN International Symposium on New Ideas, New Paradigms, and Reflections on Programming and Software, November 2020 (Onward! '20). November 2020. </i><br>
+	[<a href="pubs/onward20.pdf">pdf</a>] [<a href="">slides</a>] [<a href="https://www.youtube.com/watch?v=ge6nHqD89mc&feature=youtu.be&ab_channel=AnirudhJain">talk</a>]
+      </li>
+      <li>
+	<b>Valence: Variable Length Calling Context Encoding.</b><br>
+	Tong Zhou, Michael R. Jantz, Prasad A. Kulkarni, Kshitij A. Doshi, and Vivek Sarkar.<br>
+	<i>28th International Conference on Compiler Construction (CC '19). February 2019. </i><br>
+	[<a href="pubs/cc19.pdf">pdf</a>] [<a href="talks/valence.pdf">slides</a>] [<a href="talks/valence.pptx">pptx</a>]
+      </li>
 
-  <li>
-    <b>MemBrain: Automated Application Guidance for Hybrid Memory Systems.</b><br>
-    M. Benjamin Olson, Tong Zhou, Michael R. Jantz, Kshitij A. Doshi, M. Graham Lopez, and Oscar Hernandez.<br>
-    <i>13th IEEE International Conference on Networking, Architecture, and Storage (NAS '18). October 2018. (Awarded Best Paper) </i><br>
-    <a href="pubs/nas18.pdf">pdf</a> 
-  </li>
-</ul>
+      <li>
+	<b>MemBrain: Automated Application Guidance for Hybrid Memory Systems.</b><br>
+	M. Benjamin Olson, Tong Zhou, Michael R. Jantz, Kshitij A. Doshi, M. Graham Lopez, and Oscar Hernandez.<br>
+	<i>13th IEEE International Conference on Networking, Architecture, and Storage (NAS '18). October 2018. (Awarded Best Paper) </i><br>
+	<a href="pubs/nas18.pdf">pdf</a> 
+      </li>
+    </ul>
 
-<h2>Blogs</h2>
-<ul>
-  <li>
-    <a href="https://github.com/vesuppi/vesuppi.github.io/blob/master/paper-reading/STACK-SOSP13.md">Paper reading: Towards Optimization-Safe Systems: Analyzing the Impact of Undefined Behavior</a>
-    
-    <!-- <a href="paper-reading/STACK-SOSP13.md">Paper reading: Towards Optimization-Safe Systems: Analyzing the Impact of Undefined Behavior</a> -->
-    
-  </li>
+    <!-- <h2>Blogs</h2> -->
+    <!-- <ul> -->
+    <!--   <li> -->
+    <!-- 	<a href="https://github.com/vesuppi/vesuppi.github.io/blob/master/paper-reading/STACK-SOSP13.md">Paper reading: Towards Optimization-Safe Systems: Analyzing the Impact of Undefined Behavior</a> -->
+	
+    <!-- 	<\!-- <a href="paper-reading/STACK-SOSP13.md">Paper reading: Towards Optimization-Safe Systems: Analyzing the Impact of Undefined Behavior</a> -\-> -->
+	
+    <!--   </li> -->
 
-</ul>
+    <!-- </ul> -->
 
-<h2>Teachings</h2>
-<p>2018 Spring (TA): <a href="./classes/cs581/index.html">CS 581 Algorithms</a></p>
+    <h2>Teachings</h2>
+    <p>2018 Spring (TA): <a href="./classes/cs581/index.html">CS 581 Algorithms</a></p>
 
-<h2>Recommended Stuff</h2>
-<p>My all-time favorite seminar: <a href="http://fast-code.csail.mit.edu/">MIT Fast Code Seminar</a></p>
+    <!-- <h2>Recommended Stuff</h2> -->
+    <!-- <p>My all-time favorite seminar: <a href="http://fast-code.csail.mit.edu/">MIT Fast Code Seminar</a></p> -->
 
-<h2>Contact</h2>
-<ul>
-  <li>tz at gatech edu</li>
-  <li>2337 Klaus Advanced Computing Building,
-    266 Ferst Dr NW,
-    Atlanta, GA 30332
-  </li>
-</ul>
-<!-- <h2>Life</h2> -->
-<!-- <p>TBD</p> -->
-</body>
+    <h2>Contact</h2>
+    <ul>
+      <li>tz at gatech edu</li>
+      <li>2337 Klaus Advanced Computing Building,
+	266 Ferst Dr NW,
+	Atlanta, GA 30332
+      </li>
+    </ul>
+    <!-- <h2>Life</h2> -->
+    <!-- <p>TBD</p> -->
+  </body>
 </html>
