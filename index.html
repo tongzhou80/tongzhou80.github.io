@@ -18,6 +18,10 @@
       margin: 15px auto;
       }
 
+      /* input:focus { */
+      /* 	  outline:none; */
+      /* } */
+
     </style>
   </head>
   <body>
@@ -53,6 +57,7 @@
         [<a href="#" title="show/unshow the abstract" onclick="showAbstract('appy'); return false;">Abstract</a>] [<a href="https://dl.acm.org/doi/pdf/10.1145/3640537.3641575">PDF</a>] [<a href="talks/APPy.pdf">Slides</a>] [<a href="https://github.com/habanero-lab/APPy">GitHub</a>] [<a href="https://codefile.io/f/CLS1EqdcwA">Demo</a>]
       </li>
       <p id="ab-appy" filled=""></p>
+      <!-- <input type="text" id="comment-appy" style="display:none;"> -->
 
       <li>
         <b>ReACT: <u>Re</u>dundancy-<u>A</u>ware <u>C</u>ode Generation for <u>T</u>ensor Expressions.</b><br>
@@ -109,11 +114,11 @@ Computer systems with multiple tiers of memory devices with different latency, b
 
 We introduce the Intrepydd programming system, which enables data scientists to write application kernels with high performance, productivity, and portability on current and future hardware. Intrepydd is based on Python, though the approach can be applied to other base languages as well. To deliver high performance, the Intrepydd toolchain uses ahead-of-time (AOT) compilation and high-level compiler optimizations of Intrepydd kernels. Intrepydd achieves portability by its ability to compile kernels for execution on different hardware platforms, and for invocation from Python or C++ main programs.
 
-An empirical evaluation shows significant performance improvements relative to Python, and the suitability of Intrepydd for mapping on to post-Moore accelerators and architectures with relative ease. We believe that Intrepydd represents a new direction of \"Discipline-Aware Languages\" (DiALs), which brings us closer to the holy grail of obtaining productivity and portability with higher performance than current Python-like languages, and with more generality than current domain-specific languages and libraries.`,
+An empirical evaluation shows significant performance improvements relative to Python, and the suitability of Intrepydd for mapping on to post-Moore accelerators and architectures with relative ease. We believe that Intrepydd represents a new direction of \"Discipline-Aware Languages\" (DiALs), which brings us closer to the holy grail of obtaining productivity and portability with higher performance than current Python-like languages, and with more generality than current domain-specific languages and libraries. <br><img src="pics/DiALs.jpg" alt="Discipline-Aware Languages" width="400" height="auto">`,
 
   "react": `High-level programming models for tensor computations are becoming increasingly popular in many domains such as machine learning and data science. The index notation is one such model that is widely adopted for expressing a wide range of tensor computations algorithmically and also as input to programming systems. In programming systems, sparse tensors can be specified as type annotations, and a compiler can be employed to perform code generation for the specified tensor expressions and sparse formats. Different code generation strategies and optimization decisions can have a significant impact on the performance of the generated code. However, the code generation strategies used by current state-of-the-art tensor compilers can result in redundant computations being present in the output code. In this work, we identify four common types of redundancies that can occur when generating code for compound expressions, and introduce new techniques that can avoid these redundancies. Empirical evaluation on real-world compound kernels, such as Sampled Dense Dense Matrix Multiplication (SDDMM), Graph Neural Network (GNN) and Matricized-Tensor Times Khatri-Rao Product (MTTKRP) shows that our generated code with redundancy elimination can result in performance improvements of 1.1× to 25× relative to a state-of-the-art Tensor Algebra COmpiler (TACO) and up to 101× relative to library approaches such as the SciPy.sparse.`,
 
-    "appy": `GPUs are increasingly being used used to speed up Python applications in the scientific computing and machine learning domains. Currently, the two common approaches to leveraging GPU acceleration in Python are 1) create a custom native GPU kernel, and import it as a function that can be called from Python; 2) use libraries such as CuPy, which provides pre-defined GPU-implementation-backed tensor operators. The first approach is very flexible but requires tremendous manual effort to create a correct and high performance GPU kernel. While the second approach dramatically improves productivity, it is limited in its generality, as many applications cannot be expressed purely using CuPy’s pre-defined tensor operators. Additionally, redundant memory access can often occur between adjacent tensor operators due to the materialization of intermediate results. In this work, we present APPy (Annotated Parallelism for Python), which enables users to parallelize generic Python loops and tensor expressions for execution on GPUs by adding simple compiler directives (annotations) to Python code. Empirical evaluation on 20 scientific computing kernels from the literature on a server with an AMD Ryzen 7 5800X 8-Core CPU and an NVIDIA RTX 3090 GPU demonstrates that with simple pragmas APPy is able to generate more efficient GPU code and achieves significant geometric mean speedup relative to CuPy (30× on average), and to three state-of-the-art Python compilers, Numba (8.3× on average), DaCe-GPU (3.1× on average) and JAX-GPU (18.8× on average).`,
+    "appy": `GPUs are increasingly being used to speed up Python applications in the scientific computing and machine learning domains. Currently, the two common approaches to leveraging GPU acceleration in Python are 1) create a custom native GPU kernel, and import it as a function that can be called from Python; 2) use libraries such as CuPy, which provides pre-defined GPU-implementation-backed tensor operators. The first approach is very flexible but requires tremendous manual effort to create a correct and high performance GPU kernel. While the second approach dramatically improves productivity, it is limited in its generality, as many applications cannot be expressed purely using CuPy’s pre-defined tensor operators. Additionally, redundant memory access can often occur between adjacent tensor operators due to the materialization of intermediate results. In this work, we present APPy (Annotated Parallelism for Python), which enables users to parallelize generic Python loops and tensor expressions for execution on GPUs by adding simple compiler directives (annotations) to Python code. Empirical evaluation on 20 scientific computing kernels from the literature on a server with an AMD Ryzen 7 5800X 8-Core CPU and an NVIDIA RTX 3090 GPU demonstrates that with simple pragmas APPy is able to generate more efficient GPU code and achieves significant geometric mean speedup relative to CuPy (30× on average), and to three state-of-the-art Python compilers, Numba (8.3× on average), DaCe-GPU (3.1× on average) and JAX-GPU (18.8× on average).`,
 
     "arcs18": `Recent emergence of systems with multiple performance and capacity tiers of memory invites a fresh consideration of strategies for optimal placement of data into the various tiers. This work explores a variety of cross-layer strategies for managing application data in multitiered memory. We propose new profiling techniques based on the automatic classification of program allocation sites, with the goal of using those classifications to guide memory tier assignments.We evaluate our approach with different profiling inputs and application strategies, and show that it outperforms other state-of-the-art management techniques.`,
 
@@ -122,25 +127,31 @@ An empirical evaluation shows significant performance improvements relative to P
 
 function showAbstract(name) {
     tag = document.getElementById('ab-' + name) ;
-    if (tag.getAttribute("filled") === "demo") {
-	tag.setAttribute("filled", "");
-    }
+    // if (tag.getAttribute("filled") === "demo") {
+    // 	tag.setAttribute("filled", "");
+    // }
 
-    if (tag.getAttribute("filled") === "") {
-	tag.innerHTML = abs[name];
-	tag.setAttribute("filled", "abstract");
-    }
-    else {
-	tag.innerHTML = "";
-	tag.setAttribute("filled", "");
-    }
+    // if (tag.getAttribute("filled") === "") {
+    // 	tag.innerHTML = abs[name];
+    // 	tag.setAttribute("filled", "abstract");
+    // }
+    // else {
+    // 	tag.innerHTML = "";
+    // 	tag.setAttribute("filled", "");
+    // }
     
-  // if (tag.innerHTML === "") {
-  //   tag.innerHTML = abs[name];
-  // }
-  // else {
-  //   tag.innerHTML = "";
-  // }
+  if (tag.innerHTML === "") {
+      tag.innerHTML = abs[name];
+      tag.style.borderStyle = "dashed";
+      tag.style.borderWidth = "thin";
+      tag.style.padding = "10px";
+//      tag.style.textAlign = "center";
+  }
+  else {
+      tag.innerHTML = "";
+      tag.style.borderStyle = "";
+      tag.style.padding = "";
+  }
 }
 
   function showAPPyDemo() {
@@ -153,6 +164,20 @@ function showAbstract(name) {
       // else {
       // 	  tag.innerHTML = '';
       // }
+  }
+
+  function showCommentBox(name) {
+      tag = document.getElementById('comment-' + name) ;
+      console.log(tag);
+      if (tag.style.display === "none") {
+	  tag.style.display = "block";
+	  tag.setAttribute("size", 100);
+	  tag.style.borderStyle = "dashed";
+      tag.style.borderWidth = "thin";
+      tag.style.padding = "10px";
+      } else {
+	  tag.style.display = "none";
+      }
   }
 </script>
 
