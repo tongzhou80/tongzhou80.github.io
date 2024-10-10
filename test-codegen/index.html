@@ -1,0 +1,63 @@
+<!doctype html>
+
+<html>
+    <head>
+        <!-- Recommended meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+        <!-- This script tag bootstraps PyScript -->
+        <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+
+    </head>
+
+    <body>
+      <div id="page-message"></div>
+
+   
+            <h3>Input Code</h3>
+
+	    <textarea id="input-code" class="py-input" rows="4" cols="50"></textarea>
+	    <br>
+            <button
+                type="submit"
+                id="btn-load"
+                class="py-button"
+                py-click="compile"
+            >
+                Compile
+            </button>
+	    <br>
+
+	    <h3>Output Host Code</h3>
+	    <textarea readonly id="output-host-code" class="py-input" rows="4" cols="50"></textarea>
+	    
+            <h3>Output Device Code</h3>
+	    <textarea readonly id="output-device-code" class="py-input" rows="10" cols="50"></textarea>
+	    
+	    
+	    <textarea id="code-editor" name="code"></textarea>
+      
+        <section class="pyscript">
+            <script type="py" src="./main.py" config="./pyscript.toml"></script>
+        </section>
+
+	<script>
+	  // Initialize CodeMirror on the textarea
+	  var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+	      mode: "javascript",   // Set the programming language mode
+	      lineNumbers: true,    // Show line numbers
+	      theme: "default"      // Optionally, you can set a theme
+	  });
+
+	  function getEditor() {
+	      return editor;
+	  }
+	</script>
+
+    </body>
+</html>
