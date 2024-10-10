@@ -1,63 +1,134 @@
 <!doctype html>
 
 <html>
-    <head>
-        <!-- Recommended meta tags -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-        <!-- This script tag bootstraps PyScript -->
-        <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+<head>
+	<!-- Recommended meta tags -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+	<!-- This script tag bootstraps PyScript -->
+	<script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/javascript/javascript.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
 
-    </head>
+	<style>
+		/* Flexbox to display the two editors side by side */
+		.editor-container {
+		  display: flex;
+		  gap: 0px; /* Space between the editors */
+		  justify-content: center;
+		}
+	
+		/* Make the editors take equal width */
+		.editor-wrapper {
+		  width: 30%;
+		}
+	
+		/* Set a height for CodeMirror editors */
+		.CodeMirror {
+			
+		  height: 200px;
+		  border: 1px solid #ddd;
+		}
+	  </style>
+</head>
 
-    <body>
-      <div id="page-message"></div>
+<body>
+	<h1>Try APPy</h1>
+	
+	<p>Write some Python code with APPy annotations and hit the "compile" button.</p>
+	
+	
+	<div class="editor-container">
+		
 
-   
-            <h3>Input Code</h3>
+		<div class="editor-wrapper">
+		  <!-- First textarea -->
+		  <button type="submit" id="btn-load" class="py-button" py-click="compile">Compile</button> <br>
+		  <textarea id="input-code" class="py-input"></textarea>
+		</div>
+		<div class="editor-wrapper">
+		  <!-- Second textarea -->
+		  <button>Host Code</button> <button>Device Code</button> 
+		  <textarea id="output-host-code" class="py-input"></textarea>
+		</div>
+		<div class="editor-wrapper" hidden="true">
+			<!-- Second textarea -->
+			<button>Host Code</button> <button>Device Code</button> 
+			<textarea id="output-device-code" class="py-input"></textarea>
+		</div>
+	  </div>
 
-	    <textarea id="input-code" class="py-input" rows="4" cols="50"></textarea>
-	    <br>
-            <button
-                type="submit"
-                id="btn-load"
-                class="py-button"
-                py-click="compile"
-            >
-                Compile
-            </button>
-	    <br>
+	<!-- <h3>Input Code</h3>
+	<textarea id="input-code" class="py-input" rows="4" cols="50"></textarea>
+	<br>
+	<button type="submit" id="btn-load" class="py-button" py-click="compile">
+		Compile
+	</button>
+	<br>
 
-	    <h3>Output Host Code</h3>
-	    <textarea readonly id="output-host-code" class="py-input" rows="4" cols="50"></textarea>
-	    
-            <h3>Output Device Code</h3>
-	    <textarea readonly id="output-device-code" class="py-input" rows="10" cols="50"></textarea>
-	    
-	    
-	    <textarea id="code-editor" name="code"></textarea>
-      
-        <section class="pyscript">
-            <script type="py" src="./main.py" config="./pyscript.toml"></script>
-        </section>
+	<h3>Output Host Code</h3>
+	<textarea readonly id="output-host-code" class="py-input" rows="4" cols="50"></textarea>
+
+	<h3>Output Device Code</h3>
+	<textarea readonly id="output-device-code" class="py-input" rows="10" cols="50"></textarea>
+ -->
+
+
 
 	<script>
-	  // Initialize CodeMirror on the textarea
-	  var editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
-	      mode: "javascript",   // Set the programming language mode
-	      lineNumbers: true,    // Show line numbers
-	      theme: "default"      // Optionally, you can set a theme
-	  });
+		// Initialize CodeMirror on the textarea
+		var inputCodeEditor = CodeMirror.fromTextArea(document.getElementById("input-code"), {
+			mode: "python",   // Set the programming language mode
+			lineNumbers: true,    // Show line numbers
+			theme: "default"
+		});
+		//inputCodeEditor.setSize(null, 100);
+		const exampleInput = `#pragma parallel for
+for i in range(N):
+    C[i] = A[i] + B[i]`
+		inputCodeEditor.setValue(exampleInput);
 
-	  function getEditor() {
-	      return editor;
-	  }
+		var hostCodeEditor = CodeMirror.fromTextArea(document.getElementById("output-host-code"), {
+			mode: "python",   // Set the programming language mode
+			lineNumbers: true,    // Show line numbers
+			theme: "default",
+			readOnly: true
+		});
+		//hostCodeEditor.setSize(null, 100);
+
+		var deviceCodeEditor = CodeMirror.fromTextArea(document.getElementById("output-device-code"), {
+			mode: "python",   // Set the programming language mode
+			lineNumbers: true,    // Show line numbers
+			theme: "default",
+			readOnly: true
+		});
+		//deviceCodeEditor.setSize(null, 100);
+
+		function getInputCode() {
+			return inputCodeEditor.getValue();
+		}
+
+		function setHostCode(code) {
+			hostCodeEditor.setValue(code);
+		}
+
+		function setDeviceCode(code) {
+			deviceCodeEditor.setValue(code);
+		}
+
+		
+
+
 	</script>
 
-    </body>
+	<section class="pyscript">
+		<script type="py" src="./main.py" config="./pyscript.toml"></script>
+	</section>
+
+</body>
+
 </html>
