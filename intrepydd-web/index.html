@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/clike/clike.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
 
 	<style>
@@ -56,18 +57,22 @@
 		  <select id="input-examples" py-change="show_input">
 			<option value="1">Input Example 1</option>
 			<option value="2">Input Example 2</option>
-			<!-- <option value="3">Input Example 3</option>
-			<option value="4">Input Example 4</option> -->
+			<option value="3">Input Example 3</option>
+			<!-- <option value="4">Input Example 4</option> -->
 		  </select>
 		  <button type="submit" id="btn-load" class="py-button" py-click="compile">Compile</button> 
 		  
 		  <br>
 		  <textarea id="input-code" class="py-input"></textarea>
 		</div>
-		<div class="editor-wrapper" style="font-size: 15px;">
+		<div class="editor-wrapper" >
 		  <!-- Second textarea -->
+		   <div style="font-size: 14px;">
 		   <span>Optimizations: </span>
 		   <input type="checkbox" id="dense-array-opt" py-click="compile"> <label for="dense-array-opt">Dense Array</label>
+		   <input type="checkbox" id="sparse-array-opt" py-click="compile"> <label for="sparse-array-opt">Sparse Array</label>
+		   <input type="checkbox" id="licm" py-click="compile"> <label for="licm">LICM</label>
+			</div>	
 		   <textarea id="output-host-code" class="py-input"></textarea>
 		</div>
 		<div class="editor-wrapper" hidden="true">
@@ -136,9 +141,11 @@
 			return inputCodeEditor.getValue();
 		}
 
-		function setInputCode(code) {
+		function setInputCode(code, format=false) {
 			inputCodeEditor.setValue(code);
-			autoFormatEditor(inputCodeEditor);
+			if (format) {
+				autoFormatEditor(inputCodeEditor);
+			}
 		}
 
 		function setHostCode(code) {

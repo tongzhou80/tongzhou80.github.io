@@ -18,23 +18,48 @@ def fib(n: int32) -> int32:
     '''
 def mul_add(a: Array(float64, 1), b: Array(float64, 1)):
     return 0.5 * a + b 
+    ''',
+    '''
+def sinkhorm_wmd(K: Array(float64, 2), M: Array(float64, 2), r: Array(float64, 1), x: Array(float64, 2), max_iter: int32, values: Array(float64, 1), columns: Array(int32, 1), indexes: Array(int32, 1), ncols_c: int32) -> Array(float64, 1):
+
+    c = csr_to_spm(values, columns, indexes, ncols_c)
+    it = 0
+    while it < max_iter:
+
+        #u: Array(float64, 2) = div(1.0, x)
+        u = 1.0 / x
+        v = c.spm_mul(div(1.0, K.T @ u))
+        x = spmm_dense(div(1.0, r).mul(K), v)
+
+        it += 1
+
+    u = 1.0 / x    
+    #u: Array(float64, 2) = div(1.0, x)
+    v = c.spm_mul(div(1.0, K.T @ u))
+    return mul(u, spmm_dense(mul(K, M), v)).sum(0)
     '''
 ]
 
-setInputCode(example_inputs[0])
+setInputCode(example_inputs[0].strip())
 
 # page_message = "This example is a code generator."
 # pydom["div#page-message"].html = page_message
 
 def show_input(event):
     id = document.getElementById("input-examples").value
-    setInputCode(example_inputs[int(id)-1])
+    setInputCode(example_inputs[int(id)-1].strip())
 
 
 def compile(event):
     dense_array_opt, sparse_array_opt, licm, slice_opt = [False] * 4
     if document.getElementById("dense-array-opt").checked:
         dense_array_opt = True
+
+    if document.getElementById("sparse-array-opt").checked:
+        sparse_array_opt = True
+
+    if document.getElementById("licm").checked:
+        licm = True
 
     # to add code for other opt flags
 
