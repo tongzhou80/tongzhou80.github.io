@@ -16,6 +16,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
 
 	<style>
+		html {
+	    	font-family: 'Source Sans Pro', sans-serif;
+		}
 		/* Flexbox to display the two editors side by side */
 		.editor-container {
 		  display: flex;
@@ -30,7 +33,6 @@
 	
 		/* Set a height for CodeMirror editors */
 		.CodeMirror {
-			
 		  height: 400px;
 		  border: 1px solid #ddd;
 		}
@@ -38,27 +40,39 @@
 </head>
 
 <body>
-	<h1>Try APPy</h1>
-	
-	<p>Write some Python code with APPy annotations and hit the "compile" button.</p>
+	<div class="editor-container">
+		<div><h1>Try Intrepydd Online</h1></div>
+	</div>
+
+	<div class="editor-container">
+		<p style="max-width: 76%;">Note: The inputs should be Python/NumPy code and the generated code makes use of the pybind11 library which packages C++ code into a Python module and works with NumPy.</p>
+	</div>
 	
 	
 	<div class="editor-container">
 		
-
 		<div class="editor-wrapper">
 		  <!-- First textarea -->
-		  <button type="submit" id="btn-load" class="py-button" py-click="compile">Compile</button> <br>
+		  <select id="input-examples" py-change="show_input">
+			<option value="1">Input Example 1</option>
+			<option value="2">Input Example 2</option>
+			<!-- <option value="3">Input Example 3</option>
+			<option value="4">Input Example 4</option> -->
+		  </select>
+		  <button type="submit" id="btn-load" class="py-button" py-click="compile">Compile</button> 
+		  
+		  <br>
 		  <textarea id="input-code" class="py-input"></textarea>
 		</div>
-		<div class="editor-wrapper">
+		<div class="editor-wrapper" style="font-size: 15px;">
 		  <!-- Second textarea -->
-		  <button>Host Code</button> <button>Device Code</button> 
-		  <textarea id="output-host-code" class="py-input"></textarea>
+		   <span>Optimizations: </span>
+		   <input type="checkbox" id="dense-array-opt" py-click="compile"> <label for="dense-array-opt">Dense Array</label>
+		   <textarea id="output-host-code" class="py-input"></textarea>
 		</div>
 		<div class="editor-wrapper" hidden="true">
 			<!-- Second textarea -->
-			<button>Host Code</button> <button>Device Code</button> 
+			<!-- <button>Host Code</button> <button>Device Code</button>  -->
 			<textarea id="output-device-code" class="py-input"></textarea>
 		</div>
 	  </div>
@@ -96,11 +110,11 @@
 			theme: "default"
 		});
 		//inputCodeEditor.setSize(null, 100);
-		const exampleInput = `def fib(n: int32) -> int32:
-  if n <= 1: 
-      return n
-  return fib(n - 1) + fib(n - 2)`
-		inputCodeEditor.setValue(exampleInput);
+// 		const exampleInput = `def fib(n: int32) -> int32:
+//   if n <= 1: 
+//       return n
+//   return fib(n - 1) + fib(n - 2)`
+// 		inputCodeEditor.setValue(exampleInput);
 
 		var hostCodeEditor = CodeMirror.fromTextArea(document.getElementById("output-host-code"), {
 			mode: "python",   // Set the programming language mode
@@ -120,6 +134,11 @@
 
 		function getInputCode() {
 			return inputCodeEditor.getValue();
+		}
+
+		function setInputCode(code) {
+			inputCodeEditor.setValue(code);
+			autoFormatEditor(inputCodeEditor);
 		}
 
 		function setHostCode(code) {
