@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
 
 	<style>
 		/* Flexbox to display the two editors side by side */
@@ -24,13 +25,13 @@
 	
 		/* Make the editors take equal width */
 		.editor-wrapper {
-		  width: 30%;
+		  width: 38%;
 		}
 	
 		/* Set a height for CodeMirror editors */
 		.CodeMirror {
 			
-		  height: 200px;
+		  height: 400px;
 		  border: 1px solid #ddd;
 		}
 	  </style>
@@ -80,6 +81,14 @@
 
 
 	<script>
+		// Function to auto format the whole content
+		function autoFormatEditor(editor) {
+			var totalLines = editor.lineCount(); // Get the total number of lines
+			editor.autoFormatRange({line: 0, ch: 0}, {line: totalLines});
+			// Clear selection by setting the cursor at the beginning of the document
+			editor.setCursor({ line: 0, ch: 0 });
+		}
+
 		// Initialize CodeMirror on the textarea
 		var inputCodeEditor = CodeMirror.fromTextArea(document.getElementById("input-code"), {
 			mode: "python",   // Set the programming language mode
@@ -87,9 +96,10 @@
 			theme: "default"
 		});
 		//inputCodeEditor.setSize(null, 100);
-		const exampleInput = `#pragma parallel for
-for i in range(N):
-    C[i] = A[i] + B[i]`
+		const exampleInput = `def fib(n: int32) -> int32:
+  if n <= 1: 
+      return n
+  return fib(n - 1) + fib(n - 2)`
 		inputCodeEditor.setValue(exampleInput);
 
 		var hostCodeEditor = CodeMirror.fromTextArea(document.getElementById("output-host-code"), {
@@ -114,10 +124,12 @@ for i in range(N):
 
 		function setHostCode(code) {
 			hostCodeEditor.setValue(code);
+			autoFormatEditor(hostCodeEditor);
 		}
 
 		function setDeviceCode(code) {
 			deviceCodeEditor.setValue(code);
+			autoFormatEditor(deviceCodeEditor);
 		}
 
 		
@@ -127,6 +139,7 @@ for i in range(N):
 
 	<section class="pyscript">
 		<script type="py" src="./main.py" config="./pyscript.toml"></script>
+
 	</section>
 
 </body>

@@ -3,9 +3,9 @@ import ast_comments as ast
 from ast_comments import parse, dump
 from js import getInputCode, setHostCode, setDeviceCode
 
-code = 'a = b   # parallel'
+print('hello from my script')
 
-print('hello3')
+import intrepydd
 
 #print(dump(parse(code)))
 
@@ -15,5 +15,6 @@ print('hello3')
 
 def compile(event):
     code = getInputCode()
-    setHostCode("Host code")
+    cpp_code = intrepydd.compile_from_src(code)
+    setHostCode(cpp_code)
     setDeviceCode("Device code")
