@@ -49,30 +49,34 @@
 		<p style="max-width: 76%;">Note: The inputs should be Python/NumPy code and the generated code makes use of the pybind11 library which packages C++ code into a Python module and works with NumPy.</p>
 	</div>
 	
-	
 	<div class="editor-container">
-		
-		<div class="editor-wrapper">
-		  <!-- First textarea -->
-		  <select id="input-examples" py-change="show_input">
+		<select id="input-examples" py-change="show_input">
 			<option value="1">Input Example 1</option>
 			<option value="2">Input Example 2</option>
 			<option value="3">Input Example 3</option>
 			<!-- <option value="4">Input Example 4</option> -->
-		  </select>
-		  <button type="submit" id="btn-load" class="py-button" py-click="compile">Compile</button> 
+		</select>
 		  
-		  <br>
+		  
+		<div style="font-size: 14px; margin-left: 10px; margin-right: 10px;">
+			<span>Optimizations: </span>
+			<input type="checkbox" id="dense-array-opt"> <label for="dense-array-opt">Dense Array</label>
+			<input type="checkbox" id="sparse-array-opt"> <label for="sparse-array-opt">Sparse Array</label>
+			<input type="checkbox" id="licm"> <label for="licm">LICM</label>
+		</div>	
+		<button type="submit" id="btn-load" class="py-button" py-click="compile">Compile</button> 
+	</div>
+
+	<div class="editor-container">
+		
+		<div class="editor-wrapper">
+		  <!-- First textarea -->
+		  
 		  <textarea id="input-code" class="py-input"></textarea>
 		</div>
 		<div class="editor-wrapper" >
 		  <!-- Second textarea -->
-		   <div style="font-size: 14px;">
-		   <span>Optimizations: </span>
-		   <input type="checkbox" id="dense-array-opt" py-click="compile"> <label for="dense-array-opt">Dense Array</label>
-		   <input type="checkbox" id="sparse-array-opt" py-click="compile"> <label for="sparse-array-opt">Sparse Array</label>
-		   <input type="checkbox" id="licm" py-click="compile"> <label for="licm">LICM</label>
-			</div>	
+		   
 		   <textarea id="output-host-code" class="py-input"></textarea>
 		</div>
 		<div class="editor-wrapper" hidden="true">
