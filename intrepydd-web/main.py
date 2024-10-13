@@ -1,6 +1,3 @@
-from pyweb import pydom
-import ast_comments as ast
-from ast_comments import parse, dump
 from js import document 
 from js import getInputCode, setInputCode, setHostCode, setDeviceCode
 from pyodide.ffi import create_proxy
