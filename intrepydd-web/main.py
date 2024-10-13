@@ -3,6 +3,7 @@ import ast_comments as ast
 from ast_comments import parse, dump
 from js import document 
 from js import getInputCode, setInputCode, setHostCode, setDeviceCode
+from pyodide.ffi import create_proxy
 import intrepydd
 
 print('hello from my script')
@@ -50,7 +51,14 @@ def show_input(event):
     setInputCode(example_inputs[int(id)-1].strip())
 
 
-def compile(event):
+def on_key_press(event):
+    key = event.key
+    if event.altKey and event.code == 'KeyC':
+        compile()
+
+document.addEventListener('keydown', create_proxy(on_key_press))
+
+def compile(event=None):
     dense_array_opt, sparse_array_opt, licm, slice_opt = [False] * 4
     if document.getElementById("dense-array-opt").checked:
         dense_array_opt = True
