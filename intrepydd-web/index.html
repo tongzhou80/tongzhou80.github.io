@@ -38,9 +38,19 @@
 		  border: 1px solid #ddd;
 		}
 	  </style>
+
+	<script type="module">
+		const loading = document.getElementById('loading');
+		addEventListener('py:ready', () => loading.close());
+		loading.showModal();
+	</script>
 </head>
 
 <body>
+	<dialog id="loading">
+		<h1>Loading...</h1>
+	</dialog>
+
 	<div class="editor-container">
 		<div><h1>Try Intrepydd Online</h1></div>
 	</div>
