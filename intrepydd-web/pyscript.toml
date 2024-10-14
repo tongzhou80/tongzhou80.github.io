@@ -1,3 +1,3 @@
 name = "Interpydd"
 description = "Interpydd online demo"
-packages = ["ast-comments", "intrepydd"]
+packages = ["intrepydd"]
