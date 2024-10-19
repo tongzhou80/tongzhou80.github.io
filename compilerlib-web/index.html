@@ -1,0 +1,191 @@
+<!doctype html>
+
+<html>
+
+<head>
+	<!-- Recommended meta tags -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+	<!-- This script tag bootstraps PyScript -->
+	<script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/clike/clike.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/codemirror-formatting@1.0.0/formatting.js"></script>
+
+	<style>
+		html {
+	    	font-family: 'Source Sans Pro', sans-serif;
+		}
+		/* Flexbox to display the two editors side by side */
+		.editor-container {
+		  display: flex;
+		  gap: 0px; /* Space between the editors */
+		  justify-content: center;
+		}
+	
+		/* Make the editors take equal width */
+		.editor-wrapper {
+		  width: 38%;
+		}
+	
+		/* Set a height for CodeMirror editors */
+		.CodeMirror {
+		  height: 400px;
+		  border: 1px solid #ddd;
+		}
+	  </style>
+
+	<script type="module">
+		const loading = document.getElementById('loading');
+		addEventListener('py:ready', () => loading.close());
+		loading.showModal();
+	</script>
+</head>
+
+<body>
+	<dialog id="loading">
+		<h1>Loading...</h1>
+	</dialog>
+
+	<div class="editor-container">
+		<div><h1>Try Compilerlib Online</h1></div>
+	</div>
+
+	<!-- <div class="editor-container">
+		<p style="max-width: 76%;">Note: The inputs should be Python/NumPy code and the generated code makes use of the <a href="https://github.com/pybind/pybind11">pybind11</a> library which packages C++ code into a Python module and works with NumPy.</p>
+	</div> -->
+	
+	<div class="editor-container">
+		<select id="input-examples" py-change="show_input">
+			<option value="1">Input Example 1</option>
+			<option value="2">Input Example 2</option>
+			<option value="3">Input Example 3</option>
+			<!-- <option value="4">Input Example 4</option> -->
+		</select>
+		
+		<div style="font-size: 14px; margin-left: 10px; margin-right: 10px;">
+			<span>Transformations: </span>
+			<input type="checkbox" id="to_single_op_form"> <label title="">to_single_op_form</label>
+			<input type="checkbox" id="replace_op_with_call"> <label title="">replace_op_with_call</label>
+		</div>	
+
+		<!-- <select id="transforms" style="margin-left: 10px; margin-right: 10px;">
+			<option value="OpToCall" title="Transform operators into function calls">OpToCall</option>
+	
+		</select> -->
+		  
+		<button type="submit" id="btn-load" class="py-button" py-click="compile" title="Alt + C">Compile</button> 
+	</div>
+
+	<div class="editor-container">
+		
+		<div class="editor-wrapper">
+		  <!-- First textarea -->
+		  
+		  <textarea id="input-code" class="py-input"></textarea>
+		</div>
+		<div class="editor-wrapper" >
+		  <!-- Second textarea -->
+		   
+		   <textarea id="output-host-code" class="py-input"></textarea>
+		</div>
+		<div class="editor-wrapper" hidden="true">
+			<!-- Second textarea -->
+			<!-- <button>Host Code</button> <button>Device Code</button>  -->
+			<textarea id="output-device-code" class="py-input"></textarea>
+		</div>
+	  </div>
+
+	<!-- <h3>Input Code</h3>
+	<textarea id="input-code" class="py-input" rows="4" cols="50"></textarea>
+	<br>
+	<button type="submit" id="btn-load" class="py-button" py-click="compile">
+		Compile
+	</button>
+	<br>
+
+	<h3>Output Host Code</h3>
+	<textarea readonly id="output-host-code" class="py-input" rows="4" cols="50"></textarea>
+
+	<h3>Output Device Code</h3>
+	<textarea readonly id="output-device-code" class="py-input" rows="10" cols="50"></textarea>
+ -->
+
+
+
+	<script>
+		// Function to auto format the whole content
+		function autoFormatEditor(editor) {
+			var totalLines = editor.lineCount(); // Get the total number of lines
+			editor.autoFormatRange({line: 0, ch: 0}, {line: totalLines});
+			// Clear selection by setting the cursor at the beginning of the document
+			editor.setCursor({ line: 0, ch: 0 });
+		}
+
+		// Initialize CodeMirror on the textarea
+		var inputCodeEditor = CodeMirror.fromTextArea(document.getElementById("input-code"), {
+			mode: "python",   // Set the programming language mode
+			lineNumbers: true,    // Show line numbers
+			theme: "default"
+		});
+		//inputCodeEditor.setSize(null, 100);
+// 		const exampleInput = `def fib(n: int32) -> int32:
+//   if n <= 1: 
+//       return n
+//   return fib(n - 1) + fib(n - 2)`
+// 		inputCodeEditor.setValue(exampleInput);
+
+		var hostCodeEditor = CodeMirror.fromTextArea(document.getElementById("output-host-code"), {
+			mode: "python",   // Set the programming language mode
+			lineNumbers: true,    // Show line numbers
+			theme: "default",
+			readOnly: true
+		});
+		//hostCodeEditor.setSize(null, 100);
+
+		var deviceCodeEditor = CodeMirror.fromTextArea(document.getElementById("output-device-code"), {
+			mode: "python",   // Set the programming language mode
+			lineNumbers: true,    // Show line numbers
+			theme: "default",
+			readOnly: true
+		});
+		//deviceCodeEditor.setSize(null, 100);
+
+		function getInputCode() {
+			return inputCodeEditor.getValue();
+		}
+
+		function setInputCode(code, format=false) {
+			inputCodeEditor.setValue(code);
+			if (format) {
+				autoFormatEditor(inputCodeEditor);
+			}
+		}
+
+		function setHostCode(code) {
+			hostCodeEditor.setValue(code);
+			// autoFormatEditor(hostCodeEditor);
+		}
+
+		function setDeviceCode(code) {
+			deviceCodeEditor.setValue(code);
+			autoFormatEditor(deviceCodeEditor);
+		}
+
+		
+
+
+	</script>
+
+	<section class="pyscript">
+		<script type="py" src="./main.py" config="./pyscript.toml"></script>
+
+	</section>
+
+</body>
+
+</html>
