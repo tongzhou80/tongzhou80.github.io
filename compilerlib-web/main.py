@@ -1,7 +1,8 @@
 from js import document 
 from js import getInputCode, setInputCode, setHostCode, setDeviceCode
 from pyodide.ffi import create_proxy
-from compilerlib import apply_transform_on_src
+import ast
+from compilerlib import *
 
 print('hello from my script')
 
@@ -37,9 +38,9 @@ document.addEventListener('keydown', create_proxy(on_key_press))
 
 def compile(event=None):
     code = getInputCode()
-    newcode = code
+    tree = ast.parse(code).body[0]
     if document.getElementById("to_single_op_form").checked:
-        newcode = apply_transform_on_src("to_single_op_form", newcode)
+        tree = apply_transform_on_ast("to_single_op_form", tree)
     if document.getElementById("replace_op_with_call").checked:
-        newcode = apply_transform_on_src("replace_op_with_call", newcode)
-    setHostCode(newcode)
+        tree = apply_transform_on_ast("replace_op_with_call", tree)
+    setHostCode(ast_to_code(tree))
