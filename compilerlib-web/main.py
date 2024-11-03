@@ -13,9 +13,24 @@ def foo(a: Array(2), b: Array(2)):
     ''',
     '''
 def foo(a: Array(2), b: Array(2), r: Array(2), iters: int):
-    for i in range(iters):
+    it = 0
+    while it < iters:
         b = r @ (1.0 / (a @ b))
+        it = it + 1
     return b
+    ''',
+    '''
+def foo(b: int):
+    a = 0
+    if b > 0:
+        a = b
+        b = 100
+    else:
+        a = b + 1
+        b = 200
+    print(a)
+    a = b + 1
+    print(a)
     '''
 ]
 
@@ -43,4 +58,8 @@ def compile(event=None):
         tree = apply_transform_on_ast("to_single_op_form", tree)
     if document.getElementById("replace_op_with_call").checked:
         tree = apply_transform_on_ast("replace_op_with_call", tree)
+    if document.getElementById("show_reaching_defs").checked:
+        tree = apply_transform_on_ast("attach_preds_succs_exit_based", tree)
+        tree = apply_transform_on_ast("attach_reaching_defs", tree)
+        tree = apply_transform_on_ast("show_reaching_defs", tree)
     setHostCode(ast_to_code(tree))
