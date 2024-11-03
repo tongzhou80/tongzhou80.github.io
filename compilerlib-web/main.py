@@ -31,6 +31,19 @@ def foo(b: int):
     print(a)
     a = b + 1
     print(a)
+    ''',
+    '''
+def gcd(a: int, b: int):
+    c = a
+    d = b
+    if c == 0:
+        return d
+    while d != 0:
+        if c > d:
+            c = c - d
+        else:
+            d = d - c
+    return c
     '''
 ]
 
@@ -53,7 +66,7 @@ document.addEventListener('keydown', create_proxy(on_key_press))
 
 def compile(event=None):
     code = getInputCode()
-    tree = ast.parse(code).body[0]
+    tree = code_to_ast(code)
     if document.getElementById("to_single_op_form").checked:
         tree = apply_transform_on_ast("to_single_op_form", tree)
     if document.getElementById("replace_op_with_call").checked:
