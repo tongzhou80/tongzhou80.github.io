@@ -69,10 +69,21 @@ def compile(event=None):
     tree = code_to_ast(code)
     if document.getElementById("to_single_op_form").checked:
         tree = apply_transform_on_ast("to_single_op_form", tree)
-    if document.getElementById("replace_op_with_call").checked:
-        tree = apply_transform_on_ast("replace_op_with_call", tree)
+
+    tree = apply_transform_on_ast("attach_preds_succs_exit_based", tree)
+    tree = apply_transform_on_ast("attach_reaching_defs", tree)
+
+    if document.getElementById("show_cfg_successors").checked:
+        tree = apply_transform_on_ast("show_cfg_successors", tree)
     if document.getElementById("show_reaching_defs").checked:
-        tree = apply_transform_on_ast("attach_preds_succs_exit_based", tree)
-        tree = apply_transform_on_ast("attach_reaching_defs", tree)
         tree = apply_transform_on_ast("show_reaching_defs", tree)
+    if document.getElementById("remove_dead_code").checked:
+        tree = apply_transform_on_ast("remove_unreachable_code", tree)
+        tree = apply_transform_on_ast("remove_unused_defs", tree)
+        
+    # if document.getElementById("remove_unreachable_code").checked:    
+    #     tree = apply_transform_on_ast("remove_unreachable_code", tree)
+    # if document.getElementById("remove_unused_defs").checked:
+    #     tree = apply_transform_on_ast("remove_unused_defs", tree)
+
     setHostCode(ast_to_code(tree))
