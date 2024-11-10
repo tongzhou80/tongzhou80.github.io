@@ -24,8 +24,8 @@ def sinkhorm_wmd(K: Array(float64, 2), M: Array(float64, 2), r: Array(float64, 1
     it = 0
     while it < max_iter:
         u = 1.0 / x
-        v = c.spm_mul(div(1.0, K.T @ u))
-        x = spmm_dense(div(1.0, r).mul(K), v)
+        v = c.spm_mul(1.0 / (K.T @ u))
+        x = spmm_dense(1.0 / r * K, v)
 
         it += 1
 
