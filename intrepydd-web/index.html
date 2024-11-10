@@ -48,7 +48,7 @@
 
 <body>
 	<dialog id="loading">
-		<h1>Loading...</h1>
+		<h1>Loading... (Try to refresh if it takes > 5 seconds)</h1>
 	</dialog>
 
 	<div class="editor-container">
@@ -73,8 +73,9 @@
 			<input type="checkbox" id="dense-array-opt"> <label for="dense-array-opt">Dense Array</label>
 			<input type="checkbox" id="sparse-array-opt"> <label for="sparse-array-opt">Sparse Array</label>
 			<input type="checkbox" id="licm"> <label for="licm">LICM</label>
+			<input type="checkbox" id="dumppy"> <label for="dumppy">DumpPy</label>
 		</div>	
-		<button type="submit" id="btn-load" class="py-button" py-click="compile" title="Alt + C">Compile</button> 
+		<button type="submit" id="btn-load" class="py-button" py-click="compile" title="F1">Compile</button> 
 	</div>
 
 	<div class="editor-container">
@@ -126,7 +127,14 @@
 		var inputCodeEditor = CodeMirror.fromTextArea(document.getElementById("input-code"), {
 			mode: "python",   // Set the programming language mode
 			lineNumbers: true,    // Show line numbers
-			theme: "default"
+			theme: "default",
+			indentUnit: 4,     // set the indent size to 4 spaces
+    		tabSize: 4,        // set the tab size to 4 spaces
+			extraKeys: {
+				Tab: function(cm) {
+					cm.replaceSelection("    ", "end"); // Insert 4 spaces
+				}
+			}
 		});
 		//inputCodeEditor.setSize(null, 100);
 // 		const exampleInput = `def fib(n: int32) -> int32:
@@ -139,7 +147,14 @@
 			mode: "python",   // Set the programming language mode
 			lineNumbers: true,    // Show line numbers
 			theme: "default",
-			readOnly: true
+			readOnly: true,
+			indentUnit: 4,     // set the indent size to 4 spaces
+    		tabSize: 4,        // set the tab size to 4 spaces
+			extraKeys: {
+				Tab: function(cm) {
+					cm.replaceSelection("    ", "end"); // Insert 4 spaces
+				}
+			}
 		});
 		//hostCodeEditor.setSize(null, 100);
 

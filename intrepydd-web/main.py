@@ -47,13 +47,14 @@ def show_input(event):
 
 def on_key_press(event):
     key = event.key
-    if event.altKey and event.code == 'KeyC':
+    #if event.altKey and event.code == 'KeyC':
+    if event.code == 'F1':
         compile()
 
 document.addEventListener('keydown', create_proxy(on_key_press))
 
 def compile(event=None):
-    dense_array_opt, sparse_array_opt, licm, slice_opt = [False] * 4
+    dense_array_opt, sparse_array_opt, licm, slice_opt, dumppy = [False] * 5
     if document.getElementById("dense-array-opt").checked:
         dense_array_opt = True
 
@@ -63,15 +64,22 @@ def compile(event=None):
     if document.getElementById("licm").checked:
         licm = True
 
+    if document.getElementById("dumppy").checked:
+        dumppy = True
+
     # if document.getElementById("slice-opt").checked:
     #     slice_opt = True
 
     # to add code for other opt flags
 
     code = getInputCode()
-    cpp_code = intrepydd.compile_from_src(code, 
+    cpp_code, pycode = intrepydd.compile_from_src(code, 
                     dense_array_opt=dense_array_opt,
                     sparse_array_opt=sparse_array_opt,
                     licm=licm,
-                    slice_opt=slice_opt)
-    setHostCode(cpp_code)
+                    slice_opt=slice_opt,
+                    dumppy=True)
+    if dumppy:
+        setHostCode(pycode)
+    else:
+        setHostCode(cpp_code)
