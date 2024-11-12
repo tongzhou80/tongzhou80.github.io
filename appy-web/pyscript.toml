@@ -1,0 +1,3 @@
+name = "Interpydd"
+description = "Interpydd online demo"
+packages = ["appyc==0.1.4"]
