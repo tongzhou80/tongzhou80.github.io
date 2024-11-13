@@ -35,8 +35,6 @@ def kernel(A_data, A_indptr, A_indices, x, M, N):
         y[i] = 0.0
         #pragma simd
         for j in range(start, end):
-            #col = A_indices[j]
-            #y[i] += A_data[j] * x[col]
             y[i] += A_data[j] * x[A_indices[j]]
     return y
 ''',
