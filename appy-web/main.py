@@ -72,4 +72,5 @@ document.addEventListener('keydown', create_proxy(on_key_press))
 def compile(event=None):
     code = getInputCode()
     newcode = compile_from_src(code)
+    newcode = newcode.replace('__rewrite_for_range_var', '__range_var')
     setHostCode(newcode)
