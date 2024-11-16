@@ -1,0 +1,3 @@
+name = "APPy"
+description = "APPy online demo"
+packages = ["react-compiler"]
