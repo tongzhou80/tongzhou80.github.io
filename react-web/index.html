@@ -136,12 +136,6 @@
 				}
 			}
 		});
-		//inputCodeEditor.setSize(null, 100);
-// 		const exampleInput = `def fib(n: int32) -> int32:
-//   if n <= 1: 
-//       return n
-//   return fib(n - 1) + fib(n - 2)`
-// 		inputCodeEditor.setValue(exampleInput);
 
 		var hostCodeEditor = CodeMirror.fromTextArea(document.getElementById("output-host-code"), {
 			mode: "python",   // Set the programming language mode
@@ -157,6 +151,16 @@
 			}
 		});
 		//hostCodeEditor.setSize(null, 100);
+		hostCodeEditor.addOverlay({
+			token: function (stream) {
+				const word = stream.match(/\bprange\b/)?.[0];
+				if (word) {
+					return "builtin"; // Use 'builtin' style
+				}
+				stream.next();
+				return null;
+			},
+		});
 
 		var deviceCodeEditor = CodeMirror.fromTextArea(document.getElementById("output-device-code"), {
 			mode: "python",   // Set the programming language mode
