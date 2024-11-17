@@ -13,12 +13,13 @@ def kernel(alpha, x: Index('i'), y: Index('i')):
     return alpha * x + y
 ''',
 '''
-def kernel(A: Index('i,j'), b: Index('j')):
-    return relu(A + b)
-''',
-'''
 def kernel(alpha, A: Index('i,j')):
     return where(A < 0, alpha * A, A)
+''',
+'''
+def kernel(A: Index('i,j')):
+    b = sum(A, 1)
+    return A / b[:, None]
 '''
 ]
 
