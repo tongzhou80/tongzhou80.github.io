@@ -46,14 +46,17 @@ document.addEventListener('keydown', create_proxy(on_key_press))
 
 def compile(event=None):
     code = getInputCode()
-    trie_fuse = parallelize = gen_numba_code = False
+    trie_fuse = parallelize = gen_numba_code = memory_opt = False
     if document.getElementById("trie-fusion").checked:
         trie_fuse = True
     if document.getElementById("parallelization").checked:
         parallelize = True
     if document.getElementById("gen-numba-code").checked:
         gen_numba_code = True
+    if document.getElementById("memory-optimization").checked:
+        memory_opt = True
     newcode = compile_from_src(code, trie_fuse=trie_fuse, 
                             parallelize=parallelize,
-                            gen_numba_code=gen_numba_code)
+                            gen_numba_code=gen_numba_code,
+                            memory_opt=memory_opt)
     setHostCode(newcode)
