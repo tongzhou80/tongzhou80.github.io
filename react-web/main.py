@@ -9,17 +9,21 @@ print('loaded react: ', react.__file__)
 
 example_inputs = [
 '''
-def kernel(alpha, x: Index('i'), y: Index('i')):
+def kernel(alpha, x: Tensor('i'), y: Tensor('i')):
     return alpha * x + y
 ''',
 '''
-def kernel(alpha, A: Index('i,j')):
+def kernel(alpha, A: Tensor('i,j')):
     return where(A < 0, alpha * A, A)
 ''',
 '''
-def kernel(A: Index('i,j')):
+def kernel(A: Tensor('i,j')):
     b = sum(A, 1)
     return A / b[:, None]
+''',
+'''
+def kernel(A: Tensor('i,k'), B: Tensor('k,j')):
+    return matmul(A, B)
 '''
 ]
 
@@ -42,10 +46,14 @@ document.addEventListener('keydown', create_proxy(on_key_press))
 
 def compile(event=None):
     code = getInputCode()
-    trie_fuse = parallelize = False
+    trie_fuse = parallelize = gen_numba_code = False
     if document.getElementById("trie-fusion").checked:
         trie_fuse = True
     if document.getElementById("parallelization").checked:
         parallelize = True
-    newcode = compile_from_src(code, trie_fuse=trie_fuse, parallelize=parallelize)
+    if document.getElementById("gen-numba-code").checked:
+        gen_numba_code = True
+    newcode = compile_from_src(code, trie_fuse=trie_fuse, 
+                            parallelize=parallelize,
+                            gen_numba_code=gen_numba_code)
     setHostCode(newcode)

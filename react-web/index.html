@@ -64,17 +64,19 @@
 			<option value="1">Input Example 1</option>
 			<option value="2">Input Example 2</option>
 			<option value="3">Input Example 3</option>
-			<!-- <option value="4">Input Example 4</option> -->
+			<option value="4">Input Example 4</option>
 		</select>
 		  
 		  
 		<div style="font-size: 14px; margin-left: 10px; margin-right: 10px;">
 			<span>Optimizations: </span>
-			<input type="checkbox" id="parallelization"> <label for="parallelization">parallelization</label>
+			
 			<input type="checkbox" id="trie-fusion"> <label for="trie-fusion">trie fusion</label>
+			<input type="checkbox" id="gen-numba-code"> <label for="gen-numba-code">gen numba code</label>
+			<input type="checkbox" id="parallelization"> <label for="parallelization">parallelization</label>
 			<input type="checkbox" disabled="true" id="sparse-propagation"> <label for="sparse-propagation">sparse propagation</label>
 			<input type="checkbox" disabled="true" id="memory-optimization"> <label for="memory-optimization">memory optimization</label>
-		</div>	
+		</div>
 		<button type="submit" id="btn-load" class="py-button" py-click="compile" title="F1">Compile</button> 
 	</div>
 
