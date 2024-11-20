@@ -24,6 +24,11 @@ def kernel(A: Tensor('i,j')):
 '''
 def kernel(A: Tensor('i,k'), B: Tensor('k,j')):
     return matmul(A, B)
+''',
+'''
+def f5(A: Tensor('i,k', 'csr')):
+    b = sum(A, 1)
+    return A / b[:, None]
 '''
 ]
 
