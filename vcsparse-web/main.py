@@ -49,7 +49,7 @@ document.addEventListener('keydown', create_proxy(on_key_press))
 def compile(event=None):
     code = getInputCode()
     trie_fuse = parallelize = gen_numba_code = memory_opt = use_sparse_output = False
-    if document.getElementById("trie-fusion").checked:
+    if document.getElementById("op-fusion").checked:
         trie_fuse = True
     if document.getElementById("parallelization").checked:
         parallelize = True
