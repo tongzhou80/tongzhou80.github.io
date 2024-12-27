@@ -53,15 +53,17 @@ def compile(event=None):
         trie_fuse = True
     if document.getElementById("parallelization").checked:
         parallelize = True
-    if document.getElementById("gen-numba-code").checked:
-        gen_numba_code = True
+    # if document.getElementById("gen-numba-code").checked:
+    #     gen_numba_code = True
     if document.getElementById("memory-optimization").checked:
         memory_opt = True
     if document.getElementById("use-sparse-output").checked:
         use_sparse_output = True
+
+    backend = document.getElementById("backend").value
     newcode = compile_from_src(code, trie_fuse=trie_fuse, 
                             parallelize=parallelize,
-                            gen_numba_code=gen_numba_code,
+                            backend=backend,
                             memory_opt=memory_opt,
                             use_sparse_output=use_sparse_output)
     setHostCode(newcode)
