@@ -23,9 +23,25 @@ def kernel(A: Tensor('i,k'), B: Tensor('k,j')):
     return matmul(A, B)
 ''',
 '''
-def f5(A: Tensor('i,k', 'csr')):
+def sparse_reduction(A: Tensor('i,k', 'csr')):
     b = sum(A, 1)
     return A / b[:, None]
+''',
+'''
+def sparse_add_sparse(A: Tensor('i,j', 'csr'), B: Tensor('i,j', 'csr')):
+    return A + B
+''',
+'''
+def sparse_add_dense(A: Tensor('i,j', 'csr'), B: Tensor('i,j')):
+    return A + B
+''',
+'''
+def sparse_mul_sparse(A: Tensor('i,j', 'csr'), B: Tensor('i,j', 'csr')):
+    return A * B
+''',
+'''
+def sparse_mul_dense(A: Tensor('i,j', 'csr'), B: Tensor('i,j')):
+    return A * B
 '''
 ]
 
