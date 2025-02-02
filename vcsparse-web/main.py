@@ -1,3 +1,6 @@
+import micropip
+await micropip.install("vcsparse") 
+
 from js import document 
 from js import getInputCode, setInputCode, setHostCode, setDeviceCode
 from pyodide.ffi import create_proxy
