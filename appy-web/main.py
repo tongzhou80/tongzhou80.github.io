@@ -12,11 +12,9 @@ print('hello from my script')
 
 example_inputs = [
 '''
-# Note that arguments `a` and `b` need to be 
-# some numerical (float or integer) array with 
-# data residing in the GPU memory, e.g. CuPy arrays 
-# or PyTorch tensors (either is supported by APPy). 
-# In this example, we use PyTorch tensors (with device="cuda").
+# Note that arrays `a`, `b` and `c` need to be numerical types. 
+# And the data needs to be on the GPU memory before calling the kernel.
+# To transfer data between host and device, use `appy.to_gpu` and `appy.to_cpu`.
 
 def kernel(a, b, c):
     #pragma parallel for simd
