@@ -18,33 +18,28 @@ example_inputs = [
 # or PyTorch tensors (either is supported by APPy). 
 # In this example, we use PyTorch tensors (with device="cuda").
 
-def kernel(a, b):
-    c = torch.empty_like(a)
+def kernel(a, b, c):
     #pragma parallel for simd
     for i in range(a.shape[0]):
         c[i] = a[i] + b[i]
-    return c
 ''',
 '''
 def kernel(a):
-    ## Zero-initialize the output array
-    b = torch.zeros(1, dtype=a.dtype)
-    #pragma parallel for simd
+    b = 0.0
+    #pragma parallel for simd global(b)
     for i in range(a.shape[0]): 
         #pragma atomic
-        b[0] += a[i]
+        b += a[i]
     return b
 ''',
 '''
-def kernel(A_data, A_indptr, A_indices, x, M, N):
-    y = torch.empty(M, dtype=x.dtype)
+def kernel(A_data, A_indptr, A_indices, x, y, M, N):
     #pragma parallel for
     for i in range(M):
         y[i] = 0.0
         #pragma simd
         for j in range(A_indptr[i], A_indptr[i+1]):
             y[i] += A_data[j] * x[A_indices[j]]
-    return y
 ''',
 '''
 def kernel(A, B):
