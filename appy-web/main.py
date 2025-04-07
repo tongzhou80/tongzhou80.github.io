@@ -14,15 +14,15 @@ example_inputs = [
 '''
 # Note that arrays `a`, `b` and `c` need to be numerical types. 
 # And the data needs to be on the GPU memory before calling the kernel.
-# To transfer data between host and device, use `appy.to_gpu` and `appy.to_cpu`.
+# To transfer data between host and device, use `to_gpu()` and `to_cpu()`.
 
-def kernel(a, b, c):
+def vector_add(a, b, c):
     #pragma parallel for simd
     for i in range(a.shape[0]):
         c[i] = a[i] + b[i]
 ''',
 '''
-def kernel(a):
+def vector_reduction(a):
     b = 0.0
     #pragma parallel for simd global(b)
     for i in range(a.shape[0]): 
@@ -31,7 +31,7 @@ def kernel(a):
     return b
 ''',
 '''
-def kernel(A_data, A_indptr, A_indices, x, y, M, N):
+def spmv(A_data, A_indptr, A_indices, x, y, M, N):
     #pragma parallel for
     for i in range(M):
         y[i] = 0.0
@@ -40,7 +40,7 @@ def kernel(A_data, A_indptr, A_indices, x, y, M, N):
             y[i] += A_data[j] * x[A_indices[j]]
 ''',
 '''
-def kernel(A, B):
+def jacobi_2d(A, B):
     M, N = A.shape
     for t in range(1, 10):
         #pragma 1:M-1=>parallel 1:N-1=>parallel
