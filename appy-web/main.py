@@ -24,9 +24,8 @@ def vector_add(a, b, c):
 '''
 def vector_reduction(a):
     b = 0.0
-    #pragma parallel for simd global(b)
-    for i in range(a.shape[0]): 
-        #pragma atomic
+    #pragma parallel for simd reduction(+:b)
+    for i in range(a.shape[0]):
         b += a[i]
     return b
 ''',
