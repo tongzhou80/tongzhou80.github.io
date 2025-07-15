@@ -9,6 +9,10 @@ from vcsparse import compile_from_src
 
 example_inputs = [
 '''
+def add_dense_sparse(A: Tensor('i,j'), B: Tensor('i,j', 'csr'), C: Tensor('i,j', 'csr')):
+    return A + B * C
+''',
+'''
 def kernel(alpha, x: Tensor('i'), y: Tensor('i')):
     return alpha * x + y
 ''',
@@ -45,7 +49,7 @@ def sparse_mul_sparse(A: Tensor('i,j', 'csr'), B: Tensor('i,j', 'csr')):
 '''
 def sparse_mul_dense(A: Tensor('i,j', 'csr'), B: Tensor('i,j')):
     return A * B
-'''
+''',
 ]
 
 setInputCode(example_inputs[0].strip())
