@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyVectorizer Web Demo</title>
+
+    <script type="module" src="../pyscript-dist/core.js"></script>
+
+    <!-- CodeMirror CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/eclipse.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        .editor {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            box-sizing: border-box;
+            border-right: 1px solid #ccc;
+        }
+        .controls {
+            margin-top: 10px;
+        }
+        .results {
+            flex: 1;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        button {
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+        #code-input {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="editor">
+            <h3>Enter Python Code</h3>
+            <textarea id="code-input"></textarea>
+            <div class="controls">
+                <button id="compile-button">Analyze with PyVectorizer</button>
+            </div>
+        </div>
+
+        <div class="results">
+            <h3>Analysis Results</h3>
+            <pre id="analysis-output">Results will appear here.</pre>
+        </div>
+    </div>
+
+    <!-- CodeMirror JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+
+    <section class="pyscript">
+        <script type="py" src="./main.py" config="./pyscript.toml"></script>
+    </section>
+
+    <script>
+        var editor = CodeMirror.fromTextArea(document.getElementById("code-input"), {
+            mode: "python",
+            lineNumbers: true,
+            theme: "eclipse"
+        });
+        editor.setSize("100%", "90%");
+
+        let typingTimer;
+        const typingInterval = 2000; // 2 seconds
+
+        editor.on("change", function() {
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(function() {
+                document.getElementById("compile-button").click();
+            }, typingInterval);
+        });
+    </script>
+
+</body>
+</html>
