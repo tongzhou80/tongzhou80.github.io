@@ -49,7 +49,7 @@ def on_compile_click(event):
         else:
             output = 'Code is not analyzable, the fail reason is:\n' + str(result.fail_reason)
 
-        output += '<em>Note that the analyzer assumes there is no pointer aliasing!</em>'
+        output += '<p><em>Note that the analyzer assumes there is no pointer aliasing!</em></p>'
     except Exception as e:
         output = 'Error: ' + repr(e)
     document.getElementById("analysis-output").innerHTML = output
