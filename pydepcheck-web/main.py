@@ -20,7 +20,6 @@ def dependences_to_html_list(dependences):
         html += f"<li>{dep_type}"
 
         html += "<ul>"
-        html += f"<li>var: {dep.var}</li>"
         html += f"<li>source: {dep.source} (line {dep.source_node.lineno})</li>"
         html += f"<li>sink: {dep.sink} (line {dep.sink_node.lineno})</li>"
 
